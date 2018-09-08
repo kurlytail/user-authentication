@@ -19,9 +19,11 @@ public class User {
 	private Long id;
     @Column(unique=true)
     private String email;
-    private String firstName;
-    private String lastName;
+    private String name;
     private String password;
+    
+    public User() {
+    }
     
     public User(String email) {
     	this.email = email;
@@ -43,20 +45,12 @@ public class User {
 		this.password = password;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getName() {
+		return name;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
