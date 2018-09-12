@@ -34,6 +34,16 @@ public class UserService implements UserDetailsService {
 	}
 	
 	@Transactional
+	public User loadUser(String username) throws UsernameNotFoundException {
+		
+		User user = userRepository.findByEmail(username);
+		if (user != null) {
+			return user;
+		}
+		throw new UsernameNotFoundException("Bad credentials");
+	}
+	
+	@Transactional
 	public User createUser(String email, String name, String password) {
 		User user = new User(email);
 		user.setName(name);

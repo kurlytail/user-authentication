@@ -5,6 +5,7 @@ import java.util.Arrays;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCache;
@@ -33,6 +34,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @ComponentScan("com.bst.user")
 @EnableCaching
+@EnableAutoConfiguration
 public class UserAuthenticationConfiguration {
 	@Bean
 	public PasswordEncoder createEncoder() {
