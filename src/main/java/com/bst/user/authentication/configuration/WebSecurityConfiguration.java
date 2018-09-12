@@ -3,6 +3,7 @@ package com.bst.user.authentication.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,26 +18,34 @@ import com.bst.user.authentication.components.UserService;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
 	private UserService userService;
-	
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
+	public WebSecurityConfiguration() {
+		super(false);
+	}
+
 	@Bean
 	public DaoAuthenticationProvider authProvider() {
-	    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-	    authProvider.setUserDetailsService(userService);
-	    authProvider.setPasswordEncoder(passwordEncoder);
-	    return authProvider;
+		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+		authProvider.setUserDetailsService(userService);
+		authProvider.setPasswordEncoder(passwordEncoder);
+		return authProvider;
 	}
-	
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authProvider());
-    }
+
+	@Bean
+	public AuthenticationManager customAuthenticationManager() throws Exception {
+		return authenticationManager();
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(authProvider());
+	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -55,7 +64,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http = matchers.and();
 		http = http.logout().logoutSuccessUrl("/index").logoutUrl("/auth/signout").and();
 		http = http.formLogin().failureUrl("/auth/signin?error").loginPage("/auth/signin")
-				.loginProcessingUrl("/auth/signin").usernameParameter("email").passwordParameter("password")
-				.and();
+				.loginProcessingUrl("/auth/signin").usernameParameter("email").passwordParameter("password").and();
+		http.csrf().disable();
 	}
 }
