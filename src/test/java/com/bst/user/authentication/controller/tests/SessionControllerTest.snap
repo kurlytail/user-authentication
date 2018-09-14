@@ -1,28 +1,28 @@
 {
-  "sessionStateMachineCheck" : [ "\"NOT_FOUND\"", {
-    "password" : null,
-    "name" : null,
+  "sessionStateMachineCheck" : [ "NOT_FOUND", {
     "id" : null,
-    "email" : null
-  }, "\"OK\"", {
-    "password" : null,
-    "name" : "John Doe",
+    "email" : null,
+    "name" : null,
+    "password" : null
+  }, "OK", {
     "id" : 1,
-    "email" : "john@doe.com"
-  }, "\"OK\"", {
-    "password" : null,
+    "email" : "john@doe.com",
     "name" : "John Doe",
+    "password" : null
+  }, "OK", {
     "id" : 1,
-    "email" : "john@doe.com"
-  }, "\"OK\"", "null", "\"NOT_FOUND\"", {
-    "password" : null,
-    "name" : null,
+    "email" : "john@doe.com",
+    "name" : "John Doe",
+    "password" : null
+  }, "OK", null, "NOT_FOUND", {
     "id" : null,
-    "email" : null
-  }, "\"NOT_FOUND\"", {
-    "password" : null,
+    "email" : null,
     "name" : null,
+    "password" : null
+  }, "NOT_FOUND", {
     "id" : null,
-    "email" : null
+    "email" : null,
+    "name" : null,
+    "password" : null
   } ]
 }
