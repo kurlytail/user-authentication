@@ -23,7 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.bst.configuration.user.authentication.UserAuthenticationConfiguration;
 import com.bst.user.authentication.components.UserService;
 import com.bst.user.authentication.dto.UserConfirmationDTO;
-import com.bst.user.authentication.entities.User;
+import com.bst.user.authentication.entities.Person;
 import com.bst.utility.testlib.SnapshotListener;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -65,33 +65,33 @@ public class SessionControllerTest {
 
 		userService.createUser(dto.getEmail(), "John Doe", dto.getPassword());
 
-		ResponseEntity<User> getResponse = testRestTemplate.getForEntity("/auth/session", User.class);
+		ResponseEntity<Person> getResponse = testRestTemplate.getForEntity("/auth/session", Person.class);
 		useSessionId(getResponse.getHeaders());
 		expect(getResponse.getStatusCode()).toMatchSnapshot();
 		expect(getResponse.getBody()).toMatchSnapshot();
 
-		ResponseEntity<User> postResponse = testRestTemplate.exchange("/auth/session", HttpMethod.POST,
-				new HttpEntity<>(dto, requestHeaders), User.class);
+		ResponseEntity<Person> postResponse = testRestTemplate.exchange("/auth/session", HttpMethod.POST,
+				new HttpEntity<>(dto, requestHeaders), Person.class);
 		expect(postResponse.getStatusCode()).toMatchSnapshot();
 		expect(postResponse.getBody()).toMatchSnapshot();
 
 		getResponse = testRestTemplate.exchange("/auth/session", HttpMethod.GET, new HttpEntity<>(requestHeaders),
-				User.class);
+				Person.class);
 		expect(getResponse.getStatusCode()).toMatchSnapshot();
 		expect(getResponse.getBody()).toMatchSnapshot();
 		
-		ResponseEntity<User> deleteResponse = testRestTemplate.exchange("/auth/session", HttpMethod.DELETE,
-				new HttpEntity<>(dto, requestHeaders), User.class);
+		ResponseEntity<Person> deleteResponse = testRestTemplate.exchange("/auth/session", HttpMethod.DELETE,
+				new HttpEntity<>(dto, requestHeaders), Person.class);
 		expect(deleteResponse.getStatusCode()).toMatchSnapshot();
 		expect(deleteResponse.getBody()).toMatchSnapshot();
 
 		getResponse = testRestTemplate.exchange("/auth/session", HttpMethod.GET, new HttpEntity<>(requestHeaders),
-				User.class);
+				Person.class);
 		expect(getResponse.getStatusCode()).toMatchSnapshot();
 		expect(getResponse.getBody()).toMatchSnapshot();
 		
 		deleteResponse = testRestTemplate.exchange("/auth/session", HttpMethod.DELETE,
-				new HttpEntity<>(dto, requestHeaders), User.class);
+				new HttpEntity<>(dto, requestHeaders), Person.class);
 		expect(deleteResponse.getStatusCode()).toMatchSnapshot();
 		expect(deleteResponse.getBody()).toMatchSnapshot();
 	}

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bst.user.authentication.components.UserService;
 import com.bst.user.authentication.dto.UserConfirmationDTO;
-import com.bst.user.authentication.entities.User;
+import com.bst.user.authentication.entities.Person;
 
 @RestController
 @RequestMapping("${bst.uri.user.authentication.session:/auth/session}")
@@ -31,21 +31,21 @@ public class SessionController {
 	private UserService userService;
 
 	@PostMapping
-	public User login(@RequestBody @Validated UserConfirmationDTO credentials, HttpSession httpSession) {
+	public Person login(@RequestBody @Validated UserConfirmationDTO credentials, HttpSession httpSession) {
 
 		Authentication authentication = new UsernamePasswordAuthenticationToken(credentials.getEmail(),
 				credentials.getPassword());
 		SecurityContextHolder.getContext().setAuthentication(authenticationManager.authenticate(authentication));
 
-		User user = userService.loadUser(credentials.getEmail());
+		Person user = userService.loadUser(credentials.getEmail());
 		user.setPassword(null);
 		httpSession.setAttribute("user", user);
 		return user;
 	}
 
 	@GetMapping
-	public User session(HttpSession session) {
-		User user = (User) session.getAttribute("user");
+	public Person session(HttpSession session) {
+		Person user = (Person) session.getAttribute("user");
 		if (user == null) {
 			throw new ResourceNotFoundException();
 		}
@@ -54,7 +54,7 @@ public class SessionController {
 
 	@DeleteMapping
 	public void logout(HttpSession session) {
-		User user = (User) session.getAttribute("user");
+		Person user = (Person) session.getAttribute("user");
 		if (user == null) {
 			throw new ResourceNotFoundException();
 		}

@@ -14,7 +14,7 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "userType")
-public class User implements Serializable {
+public class Person implements Serializable {
 	
     /**
 	 * 
@@ -29,10 +29,10 @@ public class User implements Serializable {
     private String name;
     private String password;
     
-    public User() {
+    public Person() {
     }
     
-    public User(String email) {
+    public Person(String email) {
     	this.email = email;
     }
 

@@ -7,14 +7,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class LocalUserDetails implements UserDetails {
 
-	private User user;
+	private Person user;
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 20020030203L;
 	
-	public LocalUserDetails(User user) {
+	public LocalUserDetails(Person user) {
 		this.user = user;
 	}
 	

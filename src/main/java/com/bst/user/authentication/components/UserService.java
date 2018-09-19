@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.bst.user.authentication.entities.LocalUserDetails;
-import com.bst.user.authentication.entities.User;
+import com.bst.user.authentication.entities.Person;
 import com.bst.user.authentication.repositories.UserRepository;
 
 @Component
@@ -26,7 +26,7 @@ public class UserService implements UserDetailsService {
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		User user = userRepository.findByEmail(username);
+		Person user = userRepository.findByEmail(username);
 		if (user != null) {
 			return new LocalUserDetails(user);
 		}
@@ -34,9 +34,9 @@ public class UserService implements UserDetailsService {
 	}
 	
 	@Transactional
-	public User loadUser(String username) throws UsernameNotFoundException {
+	public Person loadUser(String username) throws UsernameNotFoundException {
 		
-		User user = userRepository.findByEmail(username);
+		Person user = userRepository.findByEmail(username);
 		if (user != null) {
 			return user;
 		}
@@ -44,8 +44,8 @@ public class UserService implements UserDetailsService {
 	}
 	
 	@Transactional
-	public User createUser(String email, String name, String password) {
-		User user = new User(email);
+	public Person createUser(String email, String name, String password) {
+		Person user = new Person(email);
 		user.setName(name);
 		user.setPassword(passwordEncoder.encode(password));
 		
