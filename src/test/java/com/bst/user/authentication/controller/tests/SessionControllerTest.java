@@ -27,7 +27,7 @@ import com.bst.user.authentication.entities.Person;
 import com.bst.utility.testlib.SnapshotListener;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = UserAuthenticationConfiguration.class)
+@ContextConfiguration(classes = { UserAuthenticationConfiguration.class, WebSecurityConfiguration.class })
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestExecutionListeners(listeners = SnapshotListener.class, mergeMode = MergeMode.MERGE_WITH_DEFAULTS)
 @TestPropertySource("classpath:session-controller-test.properties")
@@ -79,7 +79,7 @@ public class SessionControllerTest {
 				Person.class);
 		expect(getResponse.getStatusCode()).toMatchSnapshot();
 		expect(getResponse.getBody()).toMatchSnapshot();
-		
+
 		ResponseEntity<Person> deleteResponse = testRestTemplate.exchange("/auth/session", HttpMethod.DELETE,
 				new HttpEntity<>(dto, requestHeaders), Person.class);
 		expect(deleteResponse.getStatusCode()).toMatchSnapshot();
@@ -89,7 +89,7 @@ public class SessionControllerTest {
 				Person.class);
 		expect(getResponse.getStatusCode()).toMatchSnapshot();
 		expect(getResponse.getBody()).toMatchSnapshot();
-		
+
 		deleteResponse = testRestTemplate.exchange("/auth/session", HttpMethod.DELETE,
 				new HttpEntity<>(dto, requestHeaders), Person.class);
 		expect(deleteResponse.getStatusCode()).toMatchSnapshot();

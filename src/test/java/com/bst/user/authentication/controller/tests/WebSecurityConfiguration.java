@@ -1,4 +1,4 @@
-package com.bst.user.authentication.configuration;
+package com.bst.user.authentication.controller.tests;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
