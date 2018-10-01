@@ -32,7 +32,7 @@
         <dependency>
             <groupId>com.bst</groupId>
             <artifactId>utility-lib</artifactId>
-            <version>0.0.15-SNAPSHOT</version>
+            <version>0.0.18-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
