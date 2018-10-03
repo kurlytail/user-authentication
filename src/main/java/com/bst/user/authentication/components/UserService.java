@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 
 import com.bst.user.authentication.entities.LocalUserDetails;
 import com.bst.user.authentication.entities.Person;
-import com.bst.user.authentication.repositories.UserRepository;
+import com.bst.user.authentication.repositories.PersonRepository;
 
 @Component
 public class UserService implements UserDetailsService {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private PersonRepository userRepository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
