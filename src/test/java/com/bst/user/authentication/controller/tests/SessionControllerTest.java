@@ -4,8 +4,8 @@ import static com.bst.utility.testlib.SnapshotListener.expect;
 
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestExecutionListeners.MergeMode;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -26,7 +27,7 @@ import com.bst.user.authentication.dto.UserConfirmationDTO;
 import com.bst.user.authentication.entities.Person;
 import com.bst.utility.testlib.SnapshotListener;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { UserAuthenticationConfiguration.class, WebSecurityConfiguration.class })
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestExecutionListeners(listeners = SnapshotListener.class, mergeMode = MergeMode.MERGE_WITH_DEFAULTS)
