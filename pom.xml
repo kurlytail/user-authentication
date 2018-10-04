@@ -109,7 +109,7 @@
     </dependencyManagement>
 
      <build>
-        <finalName>utility-lib</finalName>
+        <finalName>user-authentication</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
