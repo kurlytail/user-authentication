@@ -94,6 +94,10 @@
             <artifactId>junit-jupiter-migrationsupport</artifactId>
             <version>${junit-5.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-acl</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -108,7 +112,7 @@
         </dependencies>
     </dependencyManagement>
 
-     <build>
+    <build>
         <finalName>user-authentication</finalName>
         <plugins>
             <plugin>
