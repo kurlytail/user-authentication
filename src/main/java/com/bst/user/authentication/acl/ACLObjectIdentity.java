@@ -1,10 +1,11 @@
-package com.bst.user.authentication.entities;
+package com.bst.user.authentication.acl;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -14,7 +15,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "acl_object_identity", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "object_id_class", "object_id_identity" }) })
+		// TODO need to add object_id_class to unique_constraint
+		@UniqueConstraint(columnNames = { "object_id_identity" }) })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ACLObjectIdentity {
 	@Id
@@ -22,13 +24,13 @@ public class ACLObjectIdentity {
 	@NotNull
 	private Long id;
 
-	@Column(name = "object_id_class")
+	@JoinColumn(name = "object_id_class")
 	private ACLClass aclClass;
 
-	@Column(name = "parent_object")
+	@JoinColumn(name = "parent_object")
 	private ACLObjectIdentity parentObject;
 
-	@Column(name = "owner_sid")
+	@JoinColumn(name = "owner_sid")
 	private ACLSID ownerSID;
 
 	@Column(name = "entries_inheriting")

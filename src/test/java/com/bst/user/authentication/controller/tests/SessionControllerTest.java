@@ -53,7 +53,6 @@ public class SessionControllerTest {
 		String sessionId = cookie.substring(start + 1, end);
 		requestHeaders = new HttpHeaders();
 		requestHeaders.add("Cookie", "JSESSIONID=" + sessionId);
-
 	}
 
 	@Test

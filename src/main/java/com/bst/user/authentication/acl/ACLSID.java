@@ -1,4 +1,4 @@
-package com.bst.user.authentication.entities;
+package com.bst.user.authentication.acl;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
