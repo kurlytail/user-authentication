@@ -19,25 +19,25 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 		@UniqueConstraint(columnNames = { "object_id_identity" }) })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ACLObjectIdentity {
+	@JoinColumn(name = "object_id_class")
+	private ACLClass aclClass;
+
+	@Column(name = "entries_inheriting")
+	private Integer entriesInheriting;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@NotNull
 	private Long id;
 
-	@JoinColumn(name = "object_id_class")
-	private ACLClass aclClass;
-
-	@JoinColumn(name = "parent_object")
-	private ACLObjectIdentity parentObject;
+	@Column(name = "object_id_identity")
+	private Long objectIdIdentity;
 
 	@JoinColumn(name = "owner_sid")
 	private ACLSID ownerSID;
 
-	@Column(name = "entries_inheriting")
-	private Integer entriesInheriting;
-
-	@Column(name = "object_id_identity")
-	private Long objectIdIdentity;
+	@JoinColumn(name = "parent_object")
+	private ACLObjectIdentity parentObject;
 
 	@Override
 	public boolean equals(final Object obj) {
@@ -124,12 +124,12 @@ public class ACLObjectIdentity {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.aclClass == null) ? 0 : this.aclClass.hashCode());
-		result = prime * result + ((this.entriesInheriting == null) ? 0 : this.entriesInheriting.hashCode());
-		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-		result = prime * result + ((this.objectIdIdentity == null) ? 0 : this.objectIdIdentity.hashCode());
-		result = prime * result + ((this.ownerSID == null) ? 0 : this.ownerSID.hashCode());
-		result = prime * result + ((this.parentObject == null) ? 0 : this.parentObject.hashCode());
+		result = (prime * result) + ((this.aclClass == null) ? 0 : this.aclClass.hashCode());
+		result = (prime * result) + ((this.entriesInheriting == null) ? 0 : this.entriesInheriting.hashCode());
+		result = (prime * result) + ((this.id == null) ? 0 : this.id.hashCode());
+		result = (prime * result) + ((this.objectIdIdentity == null) ? 0 : this.objectIdIdentity.hashCode());
+		result = (prime * result) + ((this.ownerSID == null) ? 0 : this.ownerSID.hashCode());
+		result = (prime * result) + ((this.parentObject == null) ? 0 : this.parentObject.hashCode());
 		return result;
 	}
 

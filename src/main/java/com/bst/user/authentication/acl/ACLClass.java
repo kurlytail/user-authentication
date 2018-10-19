@@ -16,13 +16,13 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "acl_class", uniqueConstraints = { @UniqueConstraint(columnNames = { "class" }) })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ACLClass {
+	@Column(name = "class")
+	private String aclClass;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@NotNull
 	private Long id;
-
-	@Column(name = "class")
-	private String aclClass;
 
 	@Override
 	public boolean equals(final Object obj) {
@@ -61,8 +61,8 @@ public class ACLClass {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.aclClass == null) ? 0 : this.aclClass.hashCode());
-		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+		result = (prime * result) + ((this.aclClass == null) ? 0 : this.aclClass.hashCode());
+		result = (prime * result) + ((this.id == null) ? 0 : this.id.hashCode());
 		return result;
 	}
 

@@ -19,34 +19,34 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 		@UniqueConstraint(columnNames = { "ace_order" }) })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ACLEntry {
+	@Column(name = "ace_order")
+	private Long aceOrder;
+
+	@JoinColumn(name = "acl_object_identity")
+	private ACLObjectIdentity aclObjectIdentity;
+
+	@Column(name = "audit_failure")
+	private Integer auditFailure;
+
+	@Column(name = "audit_success")
+	private Integer auditSuccess;
+
+	@Column(name = "granting")
+	private Integer granting;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@NotNull
 	private Long id;
 
-	@JoinColumn(name = "acl_object_identity")
-	private ACLObjectIdentity aclObjectIdentity;
+	@Column(name = "mask")
+	private Long mask;
 
 	@Column(name = "object_id_identity")
 	private Long objectIdIdentity;
 
-	@Column(name = "ace_order")
-	private Long aceOrder;
-
 	@JoinColumn(name = "sid")
 	private ACLSID sid;
-
-	@Column(name = "mask")
-	private Long mask;
-
-	@Column(name = "granting")
-	private Integer granting;
-
-	@Column(name = "audit_success")
-	private Integer auditSuccess;
-
-	@Column(name = "audit_failure")
-	private Integer auditFailure;
 
 	@Override
 	public boolean equals(final Object obj) {
@@ -162,15 +162,15 @@ public class ACLEntry {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.aceOrder == null) ? 0 : this.aceOrder.hashCode());
-		result = prime * result + ((this.aclObjectIdentity == null) ? 0 : this.aclObjectIdentity.hashCode());
-		result = prime * result + ((this.auditSuccess == null) ? 0 : this.auditSuccess.hashCode());
-		result = prime * result + ((this.auditFailure == null) ? 0 : this.auditFailure.hashCode());
-		result = prime * result + ((this.granting == null) ? 0 : this.granting.hashCode());
-		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-		result = prime * result + ((this.mask == null) ? 0 : this.mask.hashCode());
-		result = prime * result + ((this.objectIdIdentity == null) ? 0 : this.objectIdIdentity.hashCode());
-		result = prime * result + ((this.sid == null) ? 0 : this.sid.hashCode());
+		result = (prime * result) + ((this.aceOrder == null) ? 0 : this.aceOrder.hashCode());
+		result = (prime * result) + ((this.aclObjectIdentity == null) ? 0 : this.aclObjectIdentity.hashCode());
+		result = (prime * result) + ((this.auditSuccess == null) ? 0 : this.auditSuccess.hashCode());
+		result = (prime * result) + ((this.auditFailure == null) ? 0 : this.auditFailure.hashCode());
+		result = (prime * result) + ((this.granting == null) ? 0 : this.granting.hashCode());
+		result = (prime * result) + ((this.id == null) ? 0 : this.id.hashCode());
+		result = (prime * result) + ((this.mask == null) ? 0 : this.mask.hashCode());
+		result = (prime * result) + ((this.objectIdIdentity == null) ? 0 : this.objectIdIdentity.hashCode());
+		result = (prime * result) + ((this.sid == null) ? 0 : this.sid.hashCode());
 		return result;
 	}
 

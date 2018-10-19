@@ -36,34 +36,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableCaching
 @EnableAutoConfiguration
 public class UserAuthenticationConfiguration {
-	@Bean
-	public PasswordEncoder createEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
-	@Bean
-	public MethodSecurityExpressionHandler defaultMethodSecurityExpressionHandler() {
-		DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
-		AclPermissionEvaluator permissionEvaluator = new AclPermissionEvaluator(aclService());
-		expressionHandler.setPermissionEvaluator(permissionEvaluator);
-		return expressionHandler;
-	}
-	
-	@Bean
-	public AuditLogger auditLogger() {
-		return new ConsoleAuditLogger();
-	}
-	
-	@Bean
-	public LookupStrategy lookupStrategy() {
-		return new BasicLookupStrategy(dataSource, getAclCache(), aclAuthorizationStrategy(), auditLogger());
-	}
-
-	@Bean
-	public JdbcMutableAclService aclService() {
-		return new JdbcMutableAclService(dataSource, lookupStrategy(), getAclCache());
-	}
-
 	@Autowired
 	private DataSource dataSource;
 
@@ -73,20 +45,49 @@ public class UserAuthenticationConfiguration {
 	}
 
 	@Bean
-	public PermissionGrantingStrategy permissionGrantingStrategy() {
-		return new DefaultPermissionGrantingStrategy(new ConsoleAuditLogger());
+	public JdbcMutableAclService aclService() {
+		return new JdbcMutableAclService(this.dataSource, this.lookupStrategy(), this.getAclCache());
 	}
 
 	@Bean
-	public AclCache getAclCache() {
-		return new SpringCacheBasedAclCache(cacheManager().getCache("acl"), permissionGrantingStrategy(),
-				aclAuthorizationStrategy());
+	public AuditLogger auditLogger() {
+		return new ConsoleAuditLogger();
 	}
 
 	@Bean
 	public CacheManager cacheManager() {
-		SimpleCacheManager cacheManager = new SimpleCacheManager();
+		final SimpleCacheManager cacheManager = new SimpleCacheManager();
 		cacheManager.setCaches(Arrays.asList(new ConcurrentMapCache("acl")));
 		return cacheManager;
+	}
+
+	@Bean
+	public PasswordEncoder createEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public MethodSecurityExpressionHandler defaultMethodSecurityExpressionHandler() {
+		final DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
+		final AclPermissionEvaluator permissionEvaluator = new AclPermissionEvaluator(this.aclService());
+		expressionHandler.setPermissionEvaluator(permissionEvaluator);
+		return expressionHandler;
+	}
+
+	@Bean
+	public AclCache getAclCache() {
+		return new SpringCacheBasedAclCache(this.cacheManager().getCache("acl"), this.permissionGrantingStrategy(),
+				this.aclAuthorizationStrategy());
+	}
+
+	@Bean
+	public LookupStrategy lookupStrategy() {
+		return new BasicLookupStrategy(this.dataSource, this.getAclCache(), this.aclAuthorizationStrategy(),
+				this.auditLogger());
+	}
+
+	@Bean
+	public PermissionGrantingStrategy permissionGrantingStrategy() {
+		return new DefaultPermissionGrantingStrategy(new ConsoleAuditLogger());
 	}
 }

@@ -15,6 +15,6 @@ public class AclMethodSecurityConfiguration extends GlobalMethodSecurityConfigur
 
 	@Override
 	protected MethodSecurityExpressionHandler createExpressionHandler() {
-		return defaultMethodSecurityExpressionHandler;
+		return this.defaultMethodSecurityExpressionHandler;
 	}
 }

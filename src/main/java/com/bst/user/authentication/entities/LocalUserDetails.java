@@ -7,50 +7,50 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class LocalUserDetails implements UserDetails {
 
-	private Person user;
-	
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 20020030203L;
-	
-	public LocalUserDetails(Person user) {
+
+	private final Person user;
+
+	public LocalUserDetails(final Person user) {
 		this.user = user;
 	}
-	
+
 	@Override
-	public boolean isEnabled() {
-		return true;
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
 	}
-	
+
 	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
+	public String getPassword() {
+		return this.user.getPassword();
 	}
-	
+
 	@Override
-	public boolean isAccountNonLocked() {
-		return true;
+	public String getUsername() {
+		return this.user.getEmail();
 	}
-	
+
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
 	}
-	
+
 	@Override
-	public String getUsername() {
-		return user.getEmail();
+	public boolean isAccountNonLocked() {
+		return true;
 	}
-	
+
 	@Override
-	public String getPassword() {
-		return user.getPassword();
+	public boolean isCredentialsNonExpired() {
+		return true;
 	}
-	
+
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+	public boolean isEnabled() {
+		return true;
 	}
 
 }

@@ -25,12 +25,12 @@ public class Person implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Column(unique = true)
+	private String email;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
-	@Column(unique = true)
-	private String email;
 
 	private String name;
 
@@ -106,10 +106,10 @@ public class Person implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
-		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-		result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
-		result = prime * result + ((this.password == null) ? 0 : this.password.hashCode());
+		result = (prime * result) + ((this.email == null) ? 0 : this.email.hashCode());
+		result = (prime * result) + ((this.id == null) ? 0 : this.id.hashCode());
+		result = (prime * result) + ((this.name == null) ? 0 : this.name.hashCode());
+		result = (prime * result) + ((this.password == null) ? 0 : this.password.hashCode());
 		return result;
 	}
 

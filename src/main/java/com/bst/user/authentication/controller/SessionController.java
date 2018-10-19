@@ -31,33 +31,33 @@ public class SessionController {
 	private UserService userService;
 
 	@PostMapping
-	public Person login(@RequestBody @Validated UserConfirmationDTO credentials, HttpSession httpSession) {
+	public Person login(@RequestBody @Validated final UserConfirmationDTO credentials, final HttpSession httpSession) {
 
-		Authentication authentication = new UsernamePasswordAuthenticationToken(credentials.getEmail(),
+		final Authentication authentication = new UsernamePasswordAuthenticationToken(credentials.getEmail(),
 				credentials.getPassword());
-		SecurityContextHolder.getContext().setAuthentication(authenticationManager.authenticate(authentication));
+		SecurityContextHolder.getContext().setAuthentication(this.authenticationManager.authenticate(authentication));
 
-		Person user = userService.loadUser(credentials.getEmail());
+		final Person user = this.userService.loadUser(credentials.getEmail());
 		user.setPassword(null);
 		httpSession.setAttribute("user", user);
 		return user;
 	}
 
-	@GetMapping
-	public Person session(HttpSession session) {
-		Person user = (Person) session.getAttribute("user");
-		if (user == null) {
-			throw new ResourceNotFoundException();
-		}
-		return user;
-	}
-
 	@DeleteMapping
-	public void logout(HttpSession session) {
-		Person user = (Person) session.getAttribute("user");
+	public void logout(final HttpSession session) {
+		final Person user = (Person) session.getAttribute("user");
 		if (user == null) {
 			throw new ResourceNotFoundException();
 		}
 		session.invalidate();
+	}
+
+	@GetMapping
+	public Person session(final HttpSession session) {
+		final Person user = (Person) session.getAttribute("user");
+		if (user == null) {
+			throw new ResourceNotFoundException();
+		}
+		return user;
 	}
 }

@@ -15,41 +15,41 @@ import com.bst.user.authentication.repositories.PersonRepository;
 
 @Component
 public class UserService implements UserDetailsService {
-	
-	@Autowired
-	private PersonRepository userRepository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@Override
+	@Autowired
+	private PersonRepository userRepository;
+
 	@Transactional
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
-		Person user = userRepository.findByEmail(username);
-		if (user != null) {
-			return new LocalUserDetails(user);
-		}
-		throw new UsernameNotFoundException("Bad credentials");
+	public Person createUser(final String email, final String name, final String password) {
+		final Person user = new Person(email);
+		user.setName(name);
+		user.setPassword(this.passwordEncoder.encode(password));
+
+		this.userRepository.save(user);
+		return user;
 	}
-	
+
 	@Transactional
-	public Person loadUser(String username) throws UsernameNotFoundException {
-		
-		Person user = userRepository.findByEmail(username);
+	public Person loadUser(final String username) throws UsernameNotFoundException {
+
+		final Person user = this.userRepository.findByEmail(username);
 		if (user != null) {
 			return user;
 		}
 		throw new UsernameNotFoundException("Bad credentials");
 	}
-	
+
+	@Override
 	@Transactional
-	public Person createUser(String email, String name, String password) {
-		Person user = new Person(email);
-		user.setName(name);
-		user.setPassword(passwordEncoder.encode(password));
-		
-		userRepository.save(user);
-		return user;
+	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+
+		final Person user = this.userRepository.findByEmail(username);
+		if (user != null) {
+			return new LocalUserDetails(user);
+		}
+		throw new UsernameNotFoundException("Bad credentials");
 	}
 }

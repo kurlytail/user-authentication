@@ -22,11 +22,11 @@ public class ACLSID {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "sid")
-	private String sid;
-
 	@Column(name = "principal")
 	private int principal;
+
+	@Column(name = "sid")
+	private String sid;
 
 	@Override
 	public boolean equals(final Object obj) {
@@ -76,9 +76,9 @@ public class ACLSID {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-		result = prime * result + this.principal;
-		result = prime * result + ((this.sid == null) ? 0 : this.sid.hashCode());
+		result = (prime * result) + ((this.id == null) ? 0 : this.id.hashCode());
+		result = (prime * result) + this.principal;
+		result = (prime * result) + ((this.sid == null) ? 0 : this.sid.hashCode());
 		return result;
 	}
 
