@@ -34,7 +34,7 @@ pipeline {
                 	dependenciesFingerprintPublisher(disabled: false),
                 	concordionPublisher(disabled: false),
                 	artifactsPublisher(disabled: true),
-                	pipelineGraphPublisher(disabled: false, lifecycleThreshold: install)
+                	pipelineGraphPublisher(disabled: false, lifecycleThreshold: "install")
                 ]) {
 		            sh '/usr/local/bin/mvn --batch-mode release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=$MAVEN_VERSION_NUMBER'
 		            sh '/usr/local/bin/mvn -s settings.xml clean deploy' 
