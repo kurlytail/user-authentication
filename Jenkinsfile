@@ -17,6 +17,8 @@ pipeline {
                 script {
                     loadLibrary()
                     env['MAVEN_VERSION_NUMBER'] = getMavenVersion 'kurlytail/user-authentication/master', params.BUILD_VERSION_PREFIX, params.BUILDS_OFFSET
+                	currentBuild.displayName = env['MAVEN_VERSION_NUMBER']
+                	properties([ pipelineTriggers([ snapshotDependencies() ]) ])
                 }
             }
         }
@@ -30,13 +32,16 @@ pipeline {
                 sh 'rm -rf *'
      
                 checkout scm
-                withMaven (options: [
-                	dependenciesFingerprintPublisher(disabled: false),
-                	concordionPublisher(disabled: false),
-                	pipelineGraphPublisher(disabled: false, lifecycleThreshold: "install")
-                ]) {
-		            sh '/usr/local/bin/mvn --batch-mode release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=$MAVEN_VERSION_NUMBER'
-		            sh '/usr/local/bin/mvn -s settings.xml clean deploy --update-snapshots' 
+                withMaven (
+                 	maven: "Maven",
+                 	options: [
+	                	dependenciesFingerprintPublisher(disabled: false),
+	                	concordionPublisher(disabled: false),
+	                	pipelineGraphPublisher(disabled: false, lifecycleThreshold: "install")
+                	]
+                ) {
+		            sh 'mvn --batch-mode release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=$MAVEN_VERSION_NUMBER'
+		            sh 'mvn -s settings.xml clean deploy --update-snapshots' 
 		        }
             }
         }
