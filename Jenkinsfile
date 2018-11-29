@@ -43,8 +43,7 @@ pipeline {
 	                	pipelineGraphPublisher(disabled: false, lifecycleThreshold: "install")
                 	]
                 ) {
-		            sh 'mvn --batch-mode release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=$MAVEN_VERSION_NUMBER'
-		            sh 'mvn -s settings.xml clean deploy --update-snapshots' 
+		            sh 'mvn -s settings.xml --batch-mode release:update-versions clean deploy --update-snapshots -DautoVersionSubmodules=true -DdevelopmentVersion=$MAVEN_VERSION_NUMBER'
 		        }
             }
         }
