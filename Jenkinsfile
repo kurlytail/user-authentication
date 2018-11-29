@@ -43,8 +43,10 @@ pipeline {
 	                	pipelineGraphPublisher(disabled: false, lifecycleThreshold: "install")
                 	]
                 ) {
-		            sh 'mvn release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=$MAVEN_VERSION_NUMBER'
-		            sh 'mvn -s settings.xml clean deploy --update-snapshots' 
+		            sh '''
+		            	mvn release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=$MAVEN_VERSION_NUMBER
+		            	mvn -s settings.xml clean deploy --update-snapshots
+		            ''' 
 		            //writeFile file: '.archive-jenkins-maven-event-spy-logs', text: ''
 		        }
             }
