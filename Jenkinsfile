@@ -9,6 +9,7 @@ pipeline {
     
     triggers {
         snapshotDependencies()
+        upstream(upstreamProjects: 'kurlytail/utility-lib/master', threshold: hudson.model.Result.SUCCESS)
     }
 
     stages {
