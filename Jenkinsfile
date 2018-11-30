@@ -35,6 +35,10 @@ pipeline {
                 sh 'rm -rf *'
      
                 checkout scm
+                
+                // Update versions first
+                sh '/usr/local/bin/mvn --batch-mode release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=$MAVEN_VERSION_NUMBER'
+                
                 withMaven (
                  	maven: "Maven",
                  	options: [
@@ -44,10 +48,7 @@ pipeline {
 	                	artifactsPublisher(disabled: true)
                 	]
                 ) {
-		            sh '''
-		            	mvn release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=$MAVEN_VERSION_NUMBER
-		            	mvn -s settings.xml clean deploy --update-snapshots
-		            ''' 
+		            sh 'mvn -s settings.xml clean deploy --update-snapshots'
 		            //writeFile file: '.archive-jenkins-maven-event-spy-logs', text: ''
 		        }
             }
