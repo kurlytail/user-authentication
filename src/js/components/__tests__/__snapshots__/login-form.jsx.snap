@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`# login-form ## constructor ### should create default object 1`] = `
+<form
+  className="auth-form"
+  encType="utf8"
+  id="auth-signin-form"
+>
+  <div
+    className="form-group"
+  >
+    <div
+      className="form-label-group"
+    >
+      <input
+        autoFocus={true}
+        className="form-control"
+        id="auth-signin-email"
+        onChange={[Function]}
+        placeholder="Username"
+        required={true}
+        type="text"
+      />
+      <label
+        htmlFor="auth-signin-email"
+      >
+        Username
+      </label>
+    </div>
+  </div>
+  <div
+    className="form-group"
+  >
+    <div
+      className="form-label-group"
+    >
+      <input
+        className="form-control"
+        id="auth-signin-password"
+        onChange={[Function]}
+        placeholder="Password"
+        required={true}
+        type="password"
+      />
+      <label
+        htmlFor="auth-signin-password"
+      >
+        Password
+      </label>
+    </div>
+  </div>
+  <div
+    className="form-group"
+  >
+    <button
+      className="btn btn-lg btn-primary btn-block"
+      id="auth-signin-button"
+      onClick={[Function]}
+    >
+      Sign In
+    </button>
+  </div>
+  <div
+    className="form-group text-center"
+  >
+    <div
+      className="custom-control custom-control-inline custom-checkbox"
+    >
+      <input
+        className="custom-control-input"
+        id="remember-me"
+        type="checkbox"
+      />
+      <label
+        className="custom-control-label"
+        htmlFor="remember-me"
+      >
+        Keep me signed in
+      </label>
+    </div>
+  </div>
+  <div
+    className="text-center pt-3"
+  >
+    <a
+      className="link"
+    >
+      Forgot Username?
+    </a>
+    <span
+      className="mx-2"
+    >
+      ·
+    </span>
+    <a
+      className="link"
+    >
+      Forgot Password?
+    </a>
+  </div>
+</form>
+`;
