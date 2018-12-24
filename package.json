@@ -1,6 +1,6 @@
 {
-    "name": "@kurlytail/user-authenticatino",
-    "description": "User authenticatino library",
+    "name": "@kurlytail/user-authentication",
+    "description": "User authentication library",
     "version": "0.0.1",
     "main": "dist/app.min.js",
     "devDependencies": {
